@@ -1,4 +1,207 @@
-<html>
-<body>FOO</body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vittra</title>
+  <script type="module" crossorigin src="/app.js"></script>
+  <link rel="stylesheet" crossorigin href="/index.css">
+</head>
+
+<body style="display:none">
+  <div id="app">
+    <nav class="app-nav">
+      <button data-view="home-view">Home</button>
+      <button data-view="mood-view">Mood</button>
+      <button data-view="p2p-view">P2P</button>
+      <button data-view="settings-view">Settings</button>
+    </nav>
+
+    <div class="app-header">
+      <div class="container">
+        <button class="prev" data-action="previous-view" title="Previous view"></button>
+        <div id="header-status">...</div>
+        <button class="next" data-action="next-view" title="Next view"></button>
+      </div>
+    </div>
+
+    <div id="splash-view" class="glass-card">
+      <div class="soul-orb"></div>
+    </div>
+
+    <div id="home-view" class="glass-card">
+      <div class="status-bar">
+        <div class="status-left">
+          <h2 id="device-name">-</h2>
+          <span id="energy-level" class="stat-value small">-</span>
+        </div>
+        <div class="status-right">
+          <span id="status-badge" class="status-dot">●</span>
+          <span id="network-type" class="stat-value">-</span>
+        </div>
+      </div>
+
+      <div class="avatar-panel">
+        <div class="avatar-frame">
+        </div>
+      </div>
+
+      <div class="mood-display">
+        <span id="mood-value" class="stat-value pulse">-</span>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item" data-label="Uptime">
+          <span class="stat-value">1h 24m</span>
+        </div>
+        <div class="stat-item" data-label="Last belly rub">
+          <span class="stat-value">2m ago</span>
+        </div>
+        <div id="stat-network" class="stat-item clickable" data-label="Network">
+          <div class="stat-content">
+            <div class="network-info">
+              <span class="stat-value">WiFi</span>
+              <span id="ip-address" class="stat-subvalue">-</span>
+            </div>
+            <span id="charging-icon" class="charging-icon">⚡</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        Vittrakin v<span id="version-label">0.1.0</span>
+      </div>
+    </div>
+
+    <div id="mood-view" class="glass-card">
+      <div class="top-nav">
+        <h2>Mood Console</h2>
+        <div class="nav-controls">
+          <button data-view="dashboard-view" title="Back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        <button class="action-card">
+          <span class="action-title">WAKE</span>
+        </button>
+        <button class="action-card">
+          <span class="action-title">SLEEP</span>
+        </button>
+        <button class="action-card">
+          <span class="action-title">HAPPY</span>
+        </button>
+        <button class="action-card">
+          <span class="action-title">FOCUS</span>
+        </button>
+        <button class="action-card">
+          <span class="action-title">WARN!</span>
+        </button>
+        <button class="action-card">
+          <span class="action-title">COLOR</span>
+        </button>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Custom Color</div>
+        <input type="range" min="0" max="360" value="120" class="color-slider" />
+      </div>
+    </div>
+
+    <div id="p2p-view" class="glass-card">
+      <div class="top-nav">
+        <h2>P2P Hub</h2>
+        <div class="nav-controls">
+          <button data-view="dashboard-view" title="Back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m15 18-6-6 6-6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="p2p-grid">
+        <div class="p2p-card">
+          <div class="section-title">Create Play Path</div>
+          <div id="play-id-qr" class="qr-output" aria-label="Play Path QR"></div>
+          <button class="primary-btn" data-action="generate-play-id">Generate Play ID</button>
+        </div>
+        <div class="p2p-card">
+          <div class="section-title">Scan Path</div>
+          <div id="scan-qr" class="qr-scan" aria-label="Camera preview">
+            <video id="scan-video" class="qr-video" muted playsinline></video>
+            <div id="scan-status" class="qr-status">Camera idle</div>
+          </div>
+          <button class="secondary-btn" data-action="scan-friend">Scan Friend</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Vittraks in Range</div>
+        <div class="session-list">
+          <div class="session-item" data-action="ping-friend">Vittra - 1m</div>
+          <div class="session-item" data-action="ping-friend">Kodama - 5m</div>
+          <div class="session-item" data-action="ping-friend">Kodama wiggled!</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="settings-view" class="glass-card">
+      <div class="settings-grid">
+
+        <div class="settings-card">
+          <div class="section-title">Identity</div>
+          <input type="text" id="vittra-name" class="input-field" placeholder="Creature Name" />
+        </div>
+
+        <div class="settings-card">
+          <div class="section-title">Hardware</div>
+          <div id="caps-list" class="caps-list"></div>
+        </div>
+
+        <div class="settings-card">
+          <div class="section-title">Owner Card</div>
+          <div id="owner-qr" class="qr-output small" aria-label="Owner Card QR"></div>
+        </div>
+
+        <div class="settings-card">
+          <div class="section-title">Firmware Info</div>
+          <div class="mono-tag">v<span id="version-label-settings">0.1.0</span></div>
+        </div>
+
+      </div>
+
+      <form id="settings-form" class="settings-form" data-action="save-config">
+        <div class="form-group">
+          <label>Home Wi-Fi</label>
+          <input type="text" id="wifi_ssid" class="input-field" placeholder="SSID">
+          <input type="password" id="wifi_pass" class="input-field" placeholder="Password">
+          <small>Leave blank to stay in AP-only mode</small>
+        </div>
+
+        <div class="form-group">
+          <label>Access Point</label>
+          <input type="text" id="ap_ssid" class="input-field" placeholder="AP Name (optional)">
+          <input type="password" id="ap_pass" class="input-field" placeholder="AP Password (optional)">
+        </div>
+
+        <div class="action-stack">
+          <button id="save-config-btn" type="submit" class="primary-btn">Save Settings</button>
+          <button type="button" data-action="restart-device" class="secondary-btn danger">Restart Device</button>
+        </div>
+      </form>
+    </div>
+
+
+    <script src="/vendor/qrcodegen.js"></script>
+    <script src="/vendor/jsqr.js"></script>
+</body>
 
 </html>
